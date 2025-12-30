@@ -2,75 +2,41 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🔐 Web Crypto Tool - AES / Base64 / MD5</title>
+  <title>🔒 File Crypto Tool</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>🔐 Web Crypto Tool</h1>
-      <p class="subtitle">Enkripsi file & folder — <strong>semua proses di browser Anda</strong> (aman!)</p>
-    </header>
-
-    <div class="hero">
-      💡 <strong>File penting banyak & waktumu sedikit?</strong><br>
-      📁 Upload ZIP berisi file rahasia → enkripsi semua sekaligus!
-    </div>
-
-    <section>
-      <h2>📤 Upload File atau ZIP (untuk folder)</h2>
-      <input type="file" id="fileInput" multiple accept="*/*" />
-      <p class="hint">📁 Untuk folder: kompres jadi <code>.zip</code>, lalu upload.</p>
-    </section>
-
-    <section>
-      <h2>⚙️ Opsi</h2>
-      <div>
-        <label>Algoritma:</label>
-        <select id="algoSelect">
-          <option value="aes">AES (aman, butuh password)</option>
-          <option value="base64">Base64 (encoding biasa)</option>
-          <option value="md5">MD5 (checksum/hashing)</option>
-        </select>
-      </div>
-      <div id="passwordGroup">
-        <label>Password (AES):</label>
-        <input type="password" id="password" placeholder="Minimal 8 karakter" />
-      </div>
-    </section>
-
-    <section>
-      <button id="encryptBtn">🔐 Enkripsi</button>
-      <button id="decryptBtn">🔓 Dekripsi</button>
-      <button id="hashBtn">🔍 Hitung MD5</button>
-      <button id="clearLog">🗑️ Hapus Log</button>
-    </section>
-
-    <section>
-      <h2>📝 Log & Hasil</h2>
-      <div id="log" class="log"></div>
-      <div id="downloads"></div>
-    </section>
-
-    <section class="info">
-      <h2>ℹ️ Panduan</h2>
-      <ul>
-        <li><strong>AES</strong>: Enkripsi aman. Hasil: file <code>.aes</code>. Perlu password untuk dekripsi.</li>
-        <li><strong>Base64</strong>: Bukan enkripsi! Hanya ubah ke teks. Hasil: file <code>.b64</code>.</li>
-        <li><strong>MD5</strong>: Hanya hitung checksum — tidak mengubah file.</li>
-        <li>🔒 Semua proses terjadi di <strong>browser Anda</strong> — file/kunci <strong>tidak dikirim ke server</strong>.</li>
-      </ul>
-    </section>
-
-    <footer>
-      Dibuat dengan ❤️ | <a href="https://github.com/yourname/web-crypto" target="_blank">Source Code</a>
-    </footer>
-  </div>
 
   <!-- Libraries -->
-  <script src="lib/crypto-js.min.js"></script>
-  <script src="lib/jszip.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+
+<h1>🔒 File Crypto Tool (Web)</h1>
+
+<div class="box">
+  <label>Algoritma:</label>
+  <select id="algo">
+    <option value="AES">AES</option>
+    <option value="Base64">Base64</option>
+    <option value="MD5">MD5</option>
+  </select>
+
+  <input type="password" id="password" placeholder="Password (AES saja)" />
+
+  <hr>
+
+  <input type="file" id="fileInput" multiple webkitdirectory />
+
+  <div class="buttons">
+    <button onclick="encrypt()">🔐 Enkripsi</button>
+    <button onclick="decrypt()">🔓 Dekripsi</button>
+    <button onclick="hashFile()">🔍 Hash MD5</button>
+  </div>
+</div>
+
+<pre id="log"></pre>
+
+<script src="script.js"></script>
 </body>
 </html>
